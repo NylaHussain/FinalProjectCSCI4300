@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: white;
+    color: #000;
+  }
+  
+  .hero {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('images/recipebackground.jpg');
+  }
+  .navbar {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+  }
+  
+  .navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .search-container {
+    text-align: center;
+    color: white;
+  }
+  
+  .search-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+  }
+  
+  .search-box {
+    display: inline-flex;
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+  }
+  
+  .search-box input {
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    width: 250px;
+    font-size: 1rem;
+  }
+  
+  .search-box button {
+    padding: 12px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .instructions {
+    padding: 40px 20px;
+  }
+  
+  .instructions h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .instructions ul {
+    list-style: disc;
+    padding-left: 40px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .ingredients {
+    padding: 40px 20px;
+  }
+  
+  .ingredients h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+  }
+  
+  .card {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    max-width: 120px;
+    margin-bottom: 10px;
+  }
+  
+  .card h3 {
+    margin: 10px 0 5px;
+    font-size: 1.2rem;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .card button {
+    padding: 8px 12px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .order-button {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .order-button button {
+    padding: 12px 24px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
