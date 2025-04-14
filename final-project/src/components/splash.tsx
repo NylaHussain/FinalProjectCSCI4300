@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-
+import Image from 'next/image';
 import Head from 'next/head';
 import styles from './splash.module.css';
 
@@ -29,7 +29,15 @@ const Splash = () => {
     
           <div className={styles.home_welcome}>
             {/* <img src="images/food_spread1.webp" alt="food spread" /> */}
-            <img src="/images/food_spread.jpg" alt="food spread" />
+            <div className = {styles.firstImage}>
+            <Image
+            src="/images/food_spread.jpg"
+            alt="food spread"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+            />
+            </div>
             <div className={styles.home_welcome_text}>Welcome to Pantry Poppers!</div>
           </div>
     
@@ -40,14 +48,26 @@ const Splash = () => {
           </div>
     
           <div className={styles.home_desc}>
-            <img src="/images/friends_eating.jpg" alt="friends eating" />
+            <div className = {styles.imageWrapper}>
+            <Image src="/images/friends_eating.jpg" 
+            alt="friends eating"
+            fill
+            style={{ objectFit: 'cover' }}
+            />
+            </div>
             <div className={styles.desc1}>
               All<br />
               YOU<br />
               CAN<br />
               EAT
             </div>
-            <img src="/images/friends_eating2.jpg" alt="friends eating" />
+            <div className={styles.imageWrapper}>
+            <Image src="/images/friends_eating2.jpg" 
+            alt="friends eating" 
+            fill
+            style={{ objectFit: 'cover' }}
+            />
+            </div>
             <div>
               AT<br />
               THE<br />
@@ -62,13 +82,25 @@ const Splash = () => {
     
           <div className={styles.shop_desc}>
             <p>Easily shop for all the ingredients you need</p>
-            <img src="images/home_shopping.jpg" alt="lady shopping" />
+            <div style={{ position: 'relative', width: '50vw', height: 'auto'}}>
+            <Image
+             src="/images/home_shopping.jpg"
+              alt="lady shopping"
+              fill
+              style={{ objectFit: 'cover' }}
+              />
+            </div>
           </div>
-    
           <div className={styles.pantry_text}>PANTRY</div>
-    
           <div className={styles.pantry_desc}>
-            <img src="images/pantry.jpg" alt="lady shopping" />
+            <div style={{ position: 'relative', width: '50vw', height: 'auto'}}>
+            <Image 
+            src="/images/pantry.jpg" 
+            alt="lady shopping" 
+            fill
+            style={{ objectFit: 'cover' }}
+            />
+            </div>
             <p>
               Add items to your pantry!
               <br />

@@ -3,7 +3,7 @@
     height: 15vh;
     background-color: black;
     color: whitesmoke;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     font-family: "Boldonse", system-ui;
     font-weight: 400;
@@ -17,6 +17,13 @@
     justify-content: space-between;
     padding: 30px 0;
 }
+
+.firstImage {
+    position: relative;
+    width: 100vw;
+    height: 85vh; 
+    overflow: hidden;
+  }
 
 .home_title {
     margin: 0 0 0 20px;
@@ -67,6 +74,12 @@
     font-style: normal;
 }
 
+.imageWrapper{
+    position: relative;
+    width: 25vh;
+    width: 100vw;
+}
+
 .home_desc{
     display: flex;
     justify-content: space-between;
@@ -76,8 +89,7 @@
     font-weight: 400;
     font-style: normal;
     text-align: center;
-    padding-right: 50px;
-
+    padding-right: 30px;
 }
 
 .home_desc img{
@@ -86,7 +98,7 @@
 }
 
 .desc1{
-    padding: 80px;
+    padding: 60px;
 }
 
 .shop_text{
