@@ -47,7 +47,7 @@ const Welcome = () => {
                 <div className ={styles.auth_route_buttons}>
                     <button className={styles.auth_search} onClick={handleRecipeLoginClick}>Search for Recipe</button>
                     <button className={styles.auth_search} onClick={handleItemLoginClick}>Search for Item</button>
-                    <button className={styles.auth_search}> Pantry</button>
+                    <button className={styles.auth_search} onClick={handleItemLoginClick}> Pantry</button>
                 </div>
             </div>
         </div>
