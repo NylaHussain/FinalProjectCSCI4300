@@ -55,6 +55,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styles from './itemForm.module.css';
+import Link from 'next/link';
 
 const ItemForm = () => {
   const [items, setItems] = useState([
@@ -102,9 +103,9 @@ const ItemForm = () => {
       <div className={styles.itemBody}>
         <nav className={styles.navbar}>
           <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">My Pantry</a></li>
-            <li><a href="">Make Recipe</a></li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="">My Pantry</Link></li>
+            <li><Link href="/recipe-search">Make Recipe</Link></li>
           </ul>
         </nav>
         <div className={styles.container}>

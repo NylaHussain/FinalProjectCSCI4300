@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import styles from './recipe.module.css'
+import Link from 'next/link';
 
 const Recipe = () => {
+
     return (
         <>
         <Head>
@@ -13,9 +15,9 @@ const Recipe = () => {
         <header className={styles.hero}>
         <nav className={styles.navbar}>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Add Item</a></li>
-            <li><a href="#">History</a></li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/item-search">Add Item</Link></li>
+            <li><Link href="#">Pantry</Link></li>
         </ul>
         </nav>
         <div className={styles.search_container}>

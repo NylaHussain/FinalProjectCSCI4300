@@ -67,15 +67,15 @@
     font-weight: 400;
     font-size: 200%;
     text-align: center;
-    padding: 5%;
+    padding: 7% 5% 5% 5%;
 }
 
 .auth_search{
     background-color: black;
     border:black;
     color: whitesmoke;
-    padding: 5%;
-    font-size: 250%;
+    padding: 3%;
+    font-size: 150%;
     border-radius: 5%;
 }
 

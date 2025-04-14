@@ -15,6 +15,10 @@ const Welcome = () => {
         router.push('/item-search'); // this will take user to app/login/page.js
         };
 
+    const handleLogoutClick =  () => {
+        router.push('/');
+    };
+
     return (
         <>
         <Head>
@@ -25,7 +29,7 @@ const Welcome = () => {
         <div className={styles.auth_header}>
             <nav className={styles.auth_nav}>
             <p className={styles.auth_title}>Pantry Poppers</p>
-            <button className={styles.auth_button}>logout</button>
+            <button className={styles.auth_button} onClick={handleLogoutClick}>logout</button>
             </nav>
         </div>
         <div className ={styles.auth_image_wrapper}>
@@ -35,7 +39,8 @@ const Welcome = () => {
                 <div className={styles.auth_welcome_text}>Welcome User</div>
                 <div className ={styles.auth_route_buttons}>
                     <button className={styles.auth_search} onClick={handleRecipeLoginClick}>Search for Recipe</button>
-                    <button className={styles.auth_search} onClick={handleItemLoginClick}>Add to Pantry</button>
+                    <button className={styles.auth_search} onClick={handleItemLoginClick}>Search for Item</button>
+                    <button className={styles.auth_search}> Pantry</button>
                 </div>
             </div>
         </div>
