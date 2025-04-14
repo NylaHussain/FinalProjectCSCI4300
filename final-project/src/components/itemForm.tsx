@@ -62,7 +62,7 @@ const ItemForm = () => {
   const [items, setItems] = useState([
     { id: 1, food: 'Apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg' },
     { id: 2, food: 'Banana', image: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg' },
-    { id: 3, food: 'Carrot', image: 'https://upload.wikimedia.org/wikipedia/commons/4/40/Carrot.jpg' }
+    { id: 3, food: 'Carrot', image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
   ]);
 
   const [formData, setFormData] = useState({ food: '', image: '' });
