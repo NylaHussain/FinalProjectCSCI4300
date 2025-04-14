@@ -1,7 +1,15 @@
+'use client';
+import { useRouter } from 'next/navigation';
+
 import Head from 'next/head';
 import styles from './splash.module.css';
 
 const Splash = () => {
+  const router = useRouter();
+
+  const handleLoginClick = () => {
+    router.push('/search-recipe'); // this will take user to app/login/page.js
+  };
     return (
         <>
         <Head>
@@ -14,7 +22,7 @@ const Splash = () => {
         <div className={styles.home_header}>
             <nav className={styles.home_nav}>
               <p className={styles.home_title}>Pantry Poppers</p>
-              <button className={styles.home_button}>login</button>
+              <button className={styles.home_button} onClick={handleLoginClick}>login</button>
             </nav>
           </div>
     

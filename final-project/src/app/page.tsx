@@ -1,4 +1,4 @@
-import Splash from './components/splash.tsx';
+import Splash from '../components/splash.tsx';
 
 export default function Home() {
   return (
