@@ -1,0 +1,92 @@
+.auth_header {
+    width: 100%;
+    height: 15vh;
+    background-color: black;
+    color: whitesmoke;
+    position: sticky;
+    top: 0;
+    font-family: "Boldonse", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.auth_nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0;
+}
+
+.auth_title {
+    margin: 0 0 0 60px;
+}
+
+.auth_button {
+    padding: 5px 10px;
+    margin: 0 20px 0 0;
+    font-family: "Boldonse", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    background-color: whitesmoke;
+    border: whitesmoke;
+    color: black;
+}
+
+.auth_button:hover{
+    background-color: lightgray;
+}
+
+.auth_image_wrapper {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
+.auth_image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+}
+
+.white_space {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    background-color: rgba(245, 245, 245, 0.7);
+    box-shadow: 0 4px 20px rgba(0, 0, 0.3, 0.5);
+}
+
+.auth_welcome_text {
+    color: black;
+    font-size: 500%;
+    font-weight: 400;
+    font-size: 200%;
+    text-align: center;
+    padding: 5%;
+}
+
+.auth_search{
+    background-color: black;
+    border:black;
+    color: whitesmoke;
+    padding: 5%;
+    font-size: 250%;
+    border-radius: 5%;
+}
+
+.auth_search:hover{
+    background-color: rgb(76, 75, 75);
+}
+
+.auth_route_buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin: 0 auto;
+}
