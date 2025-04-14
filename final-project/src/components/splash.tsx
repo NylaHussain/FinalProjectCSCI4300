@@ -8,8 +8,9 @@ const Splash = () => {
   const router = useRouter();
 
   const handleLoginClick = () => {
-    router.push('/search-recipe'); // this will take user to app/login/page.js
+    router.push('/welcome'); // this will take user to app/login/page.js
   };
+
     return (
         <>
         <Head>

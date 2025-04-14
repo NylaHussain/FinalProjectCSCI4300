@@ -1,7 +1,16 @@
+'use client';
+import { useRouter } from 'next/navigation';
+
 import Head from 'next/head';
 import styles from './welcome.module.css'
 
 const Welcome = () => {
+    const router = useRouter();
+
+    const handleRecipeLoginClick = () => {
+    router.push('/recipe-search'); // this will take user to app/login/page.js
+    };
+
     return (
         <>
         <Head>
@@ -21,7 +30,7 @@ const Welcome = () => {
             <div className={styles.white_space}>
                 <div className={styles.auth_welcome_text}>Welcome User</div>
                 <div className ={styles.auth_route_buttons}>
-                    <button className={styles.auth_search}>Search for Recipe</button>
+                    <button className={styles.auth_search} onClick={handleRecipeLoginClick}>Search for Recipe</button>
                     <button className={styles.auth_search}>Add to Pantry</button>
                 </div>
             </div>
