@@ -6,9 +6,13 @@ import styles from './splash.module.css';
 
 const Splash = () => {
   const router = useRouter();
-
+  var isLoggedIn = true; 
   const handleLoginClick = () => {
+    if (isLoggedIn) {
     router.push('/welcome'); // this will take user to app/login/page.js
+    } else {
+      router.push('/');
+    }
   };
 
     return (
