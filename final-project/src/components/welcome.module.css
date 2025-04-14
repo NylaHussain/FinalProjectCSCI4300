@@ -43,12 +43,19 @@
     margin: 0;
 }
 
-.auth_image {
+/* .auth_image {
     width: 100%;
     height: auto;
     display: block;
     margin: 0;
-}
+} */
+
+.auth_image {
+    position: relative;
+    width: 100%;
+    height: 150vh; 
+    margin: 0;
+  }
 
 .white_space {
     position: absolute;

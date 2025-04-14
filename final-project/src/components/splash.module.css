@@ -44,10 +44,10 @@
     background-color: lightgray;
 }
 
-.home_welcome img{
+/* .home_welcome img{
     width: 100%;
     height: auto;
-}
+} */
 
 .home_welcome_text{
     font-size: 30px;
@@ -92,10 +92,10 @@
     padding-right: 30px;
 }
 
-.home_desc img{
+/* .home_desc img{
     width: 25%;
     height: auto;
-}
+} */
 
 .desc1{
     padding: 60px;
@@ -127,10 +127,10 @@
     padding: 50px;
 }
 
-.shop_desc img{
+/* .shop_desc img{
     width: 50%;
     height: auto;
-}
+} */
 
 .pantry_text{
     padding: 15px 0 15px 15px;
@@ -154,10 +154,10 @@
 
 }
 
-.pantry_desc img{
+/* .pantry_desc img{
     width: 50%;
     height: auto;
-}
+} */
 
 .pantry_desc p{
     padding: 50px 15px 0 15px;
