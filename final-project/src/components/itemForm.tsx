@@ -59,6 +59,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const ItemForm = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [items, setItems] = useState([
     { id: 1, food: 'Apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg' },
     { id: 2, food: 'Banana', image: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg' },
@@ -100,6 +101,15 @@ const ItemForm = () => {
     console.log('Item removed:', id);
   };
 
+  if (!isLoggedIn) {
+    return (
+      <div className={styles.loggedOut}>
+        <h2>You have been logged out.</h2>
+        <Link href="/">Return to Home</Link>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -114,6 +124,11 @@ const ItemForm = () => {
             <li><Link href="/recipe-search">Make Recipe</Link></li>
           </ul>
         </nav>
+
+        <button className={styles.logoutBtn} onClick={() => setIsLoggedIn(false)}>
+          Logout
+        </button>
+
         <div className={styles.container}>
           <h2>Pantry Inventory</h2>
           <h3>Add New Item</h3>
