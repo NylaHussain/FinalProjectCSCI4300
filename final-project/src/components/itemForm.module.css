@@ -2,11 +2,13 @@
     font-family: "Boldonse", system-ui;
     background-color: rgb(255, 255, 255);
     color: #000;
-    height: 500px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-image: url('/images/pears.jpg');
+    background-size: cover; 
+    background-position: center;
   }
   
   .navbar {
@@ -57,7 +59,8 @@
 
   .form-container input{
     padding: 12px 20px;
-    border: none;
+    margin: 10px auto;
+    border: 1px solid #ccc;
     outline: none;
     font-size: 1rem;
   }

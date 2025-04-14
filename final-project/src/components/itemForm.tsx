@@ -56,6 +56,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styles from './itemForm.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const ItemForm = () => {
   const [items, setItems] = useState([
