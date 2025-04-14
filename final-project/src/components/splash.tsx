@@ -112,7 +112,7 @@ const Splash = () => {
           </div>
     
           <div className={styles.home_sign_up}>
-            <button>SIGN UP</button>
+            <button onClick={handleLoginClick}>SIGN UP</button>
           </div>
         </>
       );
