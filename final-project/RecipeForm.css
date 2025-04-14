@@ -1,0 +1,66 @@
+
+body {
+    position: relative;
+    font-family: "Boldonse", system-ui;
+    background-color: rgb(255, 255, 255);
+    color: #000;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('images/pears.jpg');
+  }
+  
+  .navbar {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+  }
+  
+  .navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .container {
+    text-align: center;
+    color: rgb(0, 0, 0);
+  }
+  
+  .container h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+  }
+
+  input {
+    width: 90%;
+  }
+  
+  .container button {
+    padding: 8px 12px;
+    margin: 12px; 
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .form-container input{
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+  }
