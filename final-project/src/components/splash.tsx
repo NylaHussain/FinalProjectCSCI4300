@@ -9,10 +9,14 @@ const Splash = () => {
   var isLoggedIn = true; 
   const handleLoginClick = () => {
     if (isLoggedIn) {
-    router.push('/welcome'); // this will take user to app/login/page.js
+    router.push('/welcome'); 
     } else {
       router.push('/');
     }
+  };
+
+  const handleSignUpClick = () => {
+    router.push('/');
   };
 
     return (
@@ -116,7 +120,7 @@ const Splash = () => {
           </div>
     
           <div className={styles.home_sign_up}>
-            <button onClick={handleLoginClick}>SIGN UP</button>
+            <button onClick={handleSignUpClick}>SIGN UP</button>
           </div>
         </>
       );
