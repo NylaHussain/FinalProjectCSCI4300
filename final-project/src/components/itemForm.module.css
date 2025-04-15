@@ -2,11 +2,13 @@
     font-family: "Boldonse", system-ui;
     background-color: rgb(255, 255, 255);
     color: #000;
-    height: 500px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-image: url('/images/pears.jpg');
+    background-size: cover; 
+    background-position: center;
   }
   
   .navbar {
@@ -57,12 +59,17 @@
 
   .form-container input{
     padding: 12px 20px;
-    border: none;
+    margin: 10px auto;
+    border: 1px solid #ffffff;
     outline: none;
     font-size: 1rem;
   }
 
+<<<<<<< HEAD
   .grid {
+=======
+.grid {
+>>>>>>> refs/remotes/origin/main
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 16px;
@@ -72,11 +79,19 @@
   }
   
   .gridItem {
+<<<<<<< HEAD
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
     background-color: #f9f9f9;
+=======
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #ffffff;
+>>>>>>> refs/remotes/origin/main
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,4 +116,10 @@
   
   .removeBtn:hover {
     background-color: #7f2f2f;
+<<<<<<< HEAD
   }
+=======
+  }
+
+  
+>>>>>>> refs/remotes/origin/main

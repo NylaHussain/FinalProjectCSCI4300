@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-
+import Image from 'next/image';
 import Head from 'next/head';
 import styles from './welcome.module.css'
 
@@ -37,14 +37,26 @@ const Welcome = () => {
             </nav>
         </div>
         <div className ={styles.auth_image_wrapper}>
-        <img className = {styles.auth_image} src="/images/pin_spread3.jpg" alt="food spread"/>
+        <div className={styles.auth_image}>
+        <Image
+         src="/images/pin_spread3.jpg"
+         alt="food spread"
+         fill
+         style={{ objectFit: 'cover' }}
+        />
+        </div>
         <div className ={styles.auth_welcome}>
             <div className={styles.white_space}>
                 <div className={styles.auth_welcome_text}>Welcome User</div>
                 <div className ={styles.auth_route_buttons}>
                     <button className={styles.auth_search} onClick={handleRecipeLoginClick}>Search for Recipe</button>
+<<<<<<< HEAD
                     <button className={styles.auth_search} onClick={handleItemLoginClick}>Search for Item</button>
                     <button className={styles.auth_search} onClick={handlePantryClick}> Pantry</button>
+=======
+                    {/* <button className={styles.auth_search} onClick={handleItemLoginClick}>Search for Item</button> */}
+                    <button className={styles.auth_search} onClick={handleItemLoginClick}> Pantry</button>
+>>>>>>> refs/remotes/origin/main
                 </div>
             </div>
         </div>

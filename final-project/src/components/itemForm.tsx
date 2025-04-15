@@ -1,64 +1,16 @@
-
-// 'use client';
-// import Head from 'next/head';
-// import styles from './itemForm.module.css';
-
-// const ItemForm = () => {
-//     return (
-//         <>
-//             <Head>
-//                 <meta charSet="UTF-8" />
-//                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//                 <title>Document</title>
-//             </Head>
-//             <div className={styles.itemBody}>
-//                 <nav className={styles.navbar}>
-//                     <ul>
-//                         <li><a href="">Home</a></li>
-//                         <li><a href="">My Pantry</a></li>
-//                         <li><a href="">Make Recipe</a></li>
-//                     </ul>
-//                 </nav>
-//                 <div className={styles.container}>
-//                     <h2>Add New Item</h2>
-//                     <div className={styles.formContainer}>
-//                         <form 
-//                             className={styles.oneCol} 
-//                             method="POST" 
-//                             action="https://formsubmit.co/f78f7fc2fb8912e45a4273d4d7b629c7"
-//                         >
-//                             <input className={styles.formInput}
-//                                 type="text" 
-//                                 name="food" 
-//                                 placeholder="Enter a food item you want to add" 
-//                                 required 
-//                             />
-//                               <input className={styles.formInput}
-//                                 type="text" 
-//                                 name="image" 
-//                                 placeholder="Enter an image of the food" 
-//                                 required 
-//                             />
-//                             <br />
-//                             <button type="submit">Add to pantry</button>
-//                         </form>  
-//                     </div>
-//                 </div>
-//             </div> 
-//         </>
-//     );
-// };
-
-// export default ItemForm;
-
 'use client';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styles from './itemForm.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+<<<<<<< HEAD
+=======
+import { useRouter } from 'next/navigation';
+>>>>>>> refs/remotes/origin/main
 
 const ItemForm = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [items, setItems] = useState([
     { id: 1, food: 'Apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg' },
     { id: 2, food: 'Banana', image: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg' },
@@ -100,6 +52,16 @@ const ItemForm = () => {
     console.log('Item removed:', id);
   };
 
+<<<<<<< HEAD
+=======
+ const router = useRouter();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push('/');
+    }
+  }, [isLoggedIn]);
+
+>>>>>>> refs/remotes/origin/main
   return (
     <>
       <Head>
@@ -112,8 +74,14 @@ const ItemForm = () => {
           <ul>
             <li><Link href="/welcome">Home</Link></li>
             <li><Link href="/recipe-search">Make Recipe</Link></li>
+            <li>
+              <button className={styles.logoutBtn} onClick={() => setIsLoggedIn(false)}>
+              Logout
+              </button>
+            </li>
           </ul>
         </nav>
+
         <div className={styles.container}>
           <h2>Pantry Inventory</h2>
           <h3>Add New Item</h3>
@@ -165,3 +133,4 @@ const ItemForm = () => {
 };
 
 export default ItemForm;
+
