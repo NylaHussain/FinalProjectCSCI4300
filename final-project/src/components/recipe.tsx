@@ -1,5 +1,6 @@
 'use client';
 import Head from 'next/head';
+import Image from 'next/image';
 import styles from './recipe.module.css'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -58,56 +59,56 @@ const Recipe = () => {
         <div className={styles.grid}>
             <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" />
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" />
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
         <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" />
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" />
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" /> 
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/> 
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" />
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" />           
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>           
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <img src="/images/food_spread.jpg" alt="Ingredient Image" />
+            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
