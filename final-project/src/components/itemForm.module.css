@@ -65,7 +65,11 @@
     font-size: 1rem;
   }
 
+<<<<<<< HEAD
+  .grid {
+=======
 .grid {
+>>>>>>> refs/remotes/origin/main
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 16px;
@@ -75,11 +79,19 @@
   }
   
   .gridItem {
+<<<<<<< HEAD
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+=======
     border: 1px solid #ffffff;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
     background-color: #ffffff;
+>>>>>>> refs/remotes/origin/main
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,6 +116,10 @@
   
   .removeBtn:hover {
     background-color: #7f2f2f;
+<<<<<<< HEAD
+  }
+=======
   }
 
   
+>>>>>>> refs/remotes/origin/main

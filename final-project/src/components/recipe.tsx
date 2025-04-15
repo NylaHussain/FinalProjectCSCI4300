@@ -26,6 +26,10 @@ const Recipe = () => {
         <nav className={styles.navbar}>
         <ul>
             <li><Link href="/welcome">Home</Link></li>
+<<<<<<< HEAD
+            <li><Link href="/item-search">Add Item</Link></li>
+            <li><Link href="/item-search">Pantry</Link></li>
+=======
             <li><Link href="/item-search">Pantry</Link></li>
             <li>
             <button className={styles.logoutBtn} onClick={() => setIsLoggedIn(false)}>
@@ -33,6 +37,7 @@ const Recipe = () => {
               </button>
             </li>
 
+>>>>>>> refs/remotes/origin/main
         </ul>
         </nav>
         <div className={styles.search_container}>
