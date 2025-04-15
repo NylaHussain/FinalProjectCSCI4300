@@ -13,7 +13,7 @@ const Splash = () => {
     } else {
       router.push('/');
     }
-  };
+  }; 
 
     return (
         <>

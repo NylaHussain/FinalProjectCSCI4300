@@ -1,62 +1,10 @@
-
-// 'use client';
-// import Head from 'next/head';
-// import styles from './itemForm.module.css';
-
-// const ItemForm = () => {
-//     return (
-//         <>
-//             <Head>
-//                 <meta charSet="UTF-8" />
-//                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//                 <title>Document</title>
-//             </Head>
-//             <div className={styles.itemBody}>
-//                 <nav className={styles.navbar}>
-//                     <ul>
-//                         <li><a href="">Home</a></li>
-//                         <li><a href="">My Pantry</a></li>
-//                         <li><a href="">Make Recipe</a></li>
-//                     </ul>
-//                 </nav>
-//                 <div className={styles.container}>
-//                     <h2>Add New Item</h2>
-//                     <div className={styles.formContainer}>
-//                         <form 
-//                             className={styles.oneCol} 
-//                             method="POST" 
-//                             action="https://formsubmit.co/f78f7fc2fb8912e45a4273d4d7b629c7"
-//                         >
-//                             <input className={styles.formInput}
-//                                 type="text" 
-//                                 name="food" 
-//                                 placeholder="Enter a food item you want to add" 
-//                                 required 
-//                             />
-//                               <input className={styles.formInput}
-//                                 type="text" 
-//                                 name="image" 
-//                                 placeholder="Enter an image of the food" 
-//                                 required 
-//                             />
-//                             <br />
-//                             <button type="submit">Add to pantry</button>
-//                         </form>  
-//                     </div>
-//                 </div>
-//             </div> 
-//         </>
-//     );
-// };
-
-// export default ItemForm;
-
 'use client';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styles from './itemForm.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const ItemForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -101,14 +49,12 @@ const ItemForm = () => {
     console.log('Item removed:', id);
   };
 
-  if (!isLoggedIn) {
-    return (
-      <div className={styles.loggedOut}>
-        <h2>You have been logged out.</h2>
-        <Link href="/">Return to Home</Link>
-      </div>
-    );
-  }
+ const router = useRouter();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push('/');
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -122,12 +68,13 @@ const ItemForm = () => {
           <ul>
             <li><Link href="/">Home</Link></li>
             <li><Link href="/recipe-search">Make Recipe</Link></li>
+            <li>
+              <button className={styles.logoutBtn} onClick={() => setIsLoggedIn(false)}>
+              Logout
+              </button>
+            </li>
           </ul>
         </nav>
-
-        <button className={styles.logoutBtn} onClick={() => setIsLoggedIn(false)}>
-          Logout
-        </button>
 
         <div className={styles.container}>
           <h2>Pantry Inventory</h2>

@@ -1,9 +1,18 @@
+'use client';
 import Head from 'next/head';
 import styles from './recipe.module.css'
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Recipe = () => {
-
+    const [isLoggedIn, setIsLoggedIn] = useState(true); 
+    const router = useRouter();
+    useEffect(() => {
+        if (!isLoggedIn) {
+            router.push('/');
+        }
+    }, [isLoggedIn]);
     return (
         <>
         <Head>
@@ -18,6 +27,11 @@ const Recipe = () => {
             <li><Link href="/">Home</Link></li>
             <li><Link href="/item-search">Add Item</Link></li>
             <li><Link href="#">Pantry</Link></li>
+            <li>
+            <button className={styles.logoutBtn} onClick={() => setIsLoggedIn(false)}>
+              Logout
+              </button>
+            </li>
         </ul>
         </nav>
         <div className={styles.search_container}>
