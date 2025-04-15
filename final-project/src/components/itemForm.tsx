@@ -66,7 +66,7 @@ const ItemForm = () => {
       <div className={styles.itemBody}>
         <nav className={styles.navbar}>
           <ul>
-            <li><Link href="/">Home</Link></li>
+            <li><Link href="/welcome">Home</Link></li>
             <li><Link href="/recipe-search">Make Recipe</Link></li>
             <li>
               <button className={styles.logoutBtn} onClick={() => setIsLoggedIn(false)}>
