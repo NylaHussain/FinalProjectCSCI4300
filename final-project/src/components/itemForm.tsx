@@ -56,12 +56,13 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import styles from './itemForm.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const ItemForm = () => {
   const [items, setItems] = useState([
-    { id: 1, food: 'Apple', image: 'https://via.placeholder.com/100?text=Apple' },
-    { id: 2, food: 'Banana', image: 'https://via.placeholder.com/100?text=Banana' },
-    { id: 3, food: 'Carrot', image: 'https://via.placeholder.com/100?text=Carrot' }
+    { id: 1, food: 'Apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg' },
+    { id: 2, food: 'Banana', image: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg' },
+    { id: 3, food: 'Carrot', image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
   ]);
 
   const [formData, setFormData] = useState({ food: '', image: '' });
@@ -93,6 +94,12 @@ const ItemForm = () => {
     setFormData({ food: '', image: '' });
   };
 
+  const handleRemove = (id) => {
+    const updatedItems = items.filter(item => item.id !== id);
+    setItems(updatedItems);
+    console.log('Item removed:', id);
+  };
+
   return (
     <>
       <Head>
@@ -103,13 +110,13 @@ const ItemForm = () => {
       <div className={styles.itemBody}>
         <nav className={styles.navbar}>
           <ul>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="">My Pantry</Link></li>
+            <li><Link href="/welcome">Home</Link></li>
             <li><Link href="/recipe-search">Make Recipe</Link></li>
           </ul>
         </nav>
         <div className={styles.container}>
-          <h2>Add New Item</h2>
+          <h2>Pantry Inventory</h2>
+          <h3>Add New Item</h3>
           <div className={styles.formContainer}>
             <form className={styles.oneCol} onSubmit={handleSubmit}>
               <input
@@ -136,6 +143,23 @@ const ItemForm = () => {
           </div>
         </div>
       </div>
+      <div className={styles.grid}>
+          {items.map(item => (
+    <div key={item.id} className={styles.gridItem}>
+      <Image
+  src={item.image}
+  alt={item.food}
+  width={100}
+  height={100}
+  className={styles.gridImage}
+/>
+      <p>{item.food}</p>
+      <button onClick={() => handleRemove(item.id)} className={styles.removeBtn}>
+        Remove
+      </button>
+    </div>
+  ))}
+</div>
     </>
   );
 };

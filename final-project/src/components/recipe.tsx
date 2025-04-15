@@ -15,9 +15,9 @@ const Recipe = () => {
         <header className={styles.hero}>
         <nav className={styles.navbar}>
         <ul>
-            <li><Link href="/">Home</Link></li>
+            <li><Link href="/welcome">Home</Link></li>
             <li><Link href="/item-search">Add Item</Link></li>
-            <li><Link href="#">Pantry</Link></li>
+            <li><Link href="/item-search">Pantry</Link></li>
         </ul>
         </nav>
         <div className={styles.search_container}>
