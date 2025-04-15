@@ -50,13 +50,8 @@ const Welcome = () => {
                 <div className={styles.auth_welcome_text}>Welcome User</div>
                 <div className ={styles.auth_route_buttons}>
                     <button className={styles.auth_search} onClick={handleRecipeLoginClick}>Search for Recipe</button>
-<<<<<<< HEAD
-                    <button className={styles.auth_search} onClick={handleItemLoginClick}>Search for Item</button>
-                    <button className={styles.auth_search} onClick={handlePantryClick}> Pantry</button>
-=======
                     {/* <button className={styles.auth_search} onClick={handleItemLoginClick}>Search for Item</button> */}
                     <button className={styles.auth_search} onClick={handleItemLoginClick}> Pantry</button>
->>>>>>> refs/remotes/origin/main
                 </div>
             </div>
         </div>

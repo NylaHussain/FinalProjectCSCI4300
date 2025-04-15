@@ -4,10 +4,8 @@ import { useEffect, useState } from 'react';
 import styles from './itemForm.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-<<<<<<< HEAD
-=======
 import { useRouter } from 'next/navigation';
->>>>>>> refs/remotes/origin/main
+
 
 const ItemForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -52,8 +50,7 @@ const ItemForm = () => {
     console.log('Item removed:', id);
   };
 
-<<<<<<< HEAD
-=======
+
  const router = useRouter();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -61,7 +58,7 @@ const ItemForm = () => {
     }
   }, [isLoggedIn]);
 
->>>>>>> refs/remotes/origin/main
+
   return (
     <>
       <Head>
