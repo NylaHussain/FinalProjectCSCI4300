@@ -78,7 +78,8 @@ const ItemForm = () => {
             </li>
           </ul>
         </nav>
-
+        <div className ={styles.pantry_container}>
+        <div className={styles.white_space}>
         <div className={styles.container}>
           <h2>Pantry Inventory</h2>
           <h3>Add New Item</h3>
@@ -106,6 +107,8 @@ const ItemForm = () => {
               <button type="submit">Add to pantry</button>
             </form>
           </div>
+        </div>
+        </div>
         </div>
       </div>
       <div className={styles.grid}>

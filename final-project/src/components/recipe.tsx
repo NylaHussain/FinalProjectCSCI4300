@@ -58,56 +58,56 @@ const Recipe = () => {
         <div className={styles.grid}>
             <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
         <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/> 
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/> 
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>           
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>           
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
         </div>
         <div className={styles.card}>
             {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/food_spread.jpg" alt="Ingredient Image" width={120} height={100}/>
+            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
             <h3>Recipe Item</h3>
             <p>Description</p>
             <button>Add to Cart</button>
