@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-
 const ItemForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [items, setItems] = useState([
@@ -50,14 +49,12 @@ const ItemForm = () => {
     console.log('Item removed:', id);
   };
 
-
  const router = useRouter();
   useEffect(() => {
     if (!isLoggedIn) {
       router.push('/');
     }
   }, [isLoggedIn]);
-
 
   return (
     <>

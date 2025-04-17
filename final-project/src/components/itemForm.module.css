@@ -86,11 +86,15 @@
   }
   
   .gridItem {
-    border: 1px solid #ccc;
+    border: 1px solid #ffffff;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
+<<<<<<< HEAD
     background-color: #f5f1f1;
+=======
+    background-color: #ffffff;
+>>>>>>> 194db0f93f6cd82fd3121f0fcd8954d9b6ff0707
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,3 +121,5 @@
   .removeBtn:hover {
     background-color: #7f2f2f;
   }
+
+  
