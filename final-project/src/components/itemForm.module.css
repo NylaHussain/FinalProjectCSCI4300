@@ -1,12 +1,12 @@
 .itemBody {
     font-family: "Boldonse", system-ui;
-    background-color: rgb(255, 255, 255);
-    color: #000;
+    background-color: whitesmoke;
+    color: whitesmoke;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('/images/pears.jpg');
+    background-image: url('/images/pantryImg.jpg');
     background-size: cover; 
     background-position: center;
   }
@@ -25,14 +25,14 @@
   
   .navbar a {
     text-decoration: none;
-    color: black;
+    color: whitesmoke;
     font-weight: 600;
     font-size: 1rem;
   }
   
   .container {
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: whitesmoke;
   }
   
   .container h2 {
@@ -79,10 +79,11 @@
     border-radius: 8px;
     padding: 10px;
     text-align: center;
-    background-color: #f9f9f9;
+    background-color: #f5f1f1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0.5,0.7);
   }
   
   .gridItem img {
