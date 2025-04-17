@@ -32,7 +32,6 @@ const Recipe = () => {
               Logout
               </button>
             </li>
-
         </ul>
         </nav>
         <div className={styles.search_container}>
