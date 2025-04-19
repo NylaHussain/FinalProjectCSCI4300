@@ -58,6 +58,7 @@
     border: none;
     outline: none;
     width: 250px;
+    color: black;
     font-size: 1rem;
   }
   
@@ -70,6 +71,10 @@
     font-weight: 600;
   }
   
+  .search_box button:hover {
+    background-color: rgb(62, 61, 61);
+  }
+
   .instructions {
     padding: 40px 20px;
   }
