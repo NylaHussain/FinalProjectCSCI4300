@@ -5,8 +5,50 @@ import styles from './recipe.module.css'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+  
 
 const Recipe = () => {
+
+    const [query, setQuery] = useState('');
+    const [recipeTitle, setRecipeTitle] = useState('');
+    const [instructions, setInstructions] = useState([]);
+    const [ingredients, setIngredients] = useState([]); 
+
+    const handleInputChange = (e) => {
+        setQuery(e.target.value);
+    };
+
+    const handleSearch = async () => {
+        if (!query.trim()) return;
+      
+        try {
+          const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(query)}&number=1&apiKey=a21c910dbf564ef1be6ec33b24caf0ed`);
+          const data = await response.json();
+      
+          const recipe = data.results[0];
+          if (!recipe) return alert('No recipe found.');
+      
+          const { id, title } = recipe;
+          setRecipeTitle(title); // store the name
+      
+          const detailsResponse = await fetch(
+            `https://api.spoonacular.com/recipes/${id}/information?apiKey=a21c910dbf564ef1be6ec33b24caf0ed`
+          );
+          const details = await detailsResponse.json();
+      
+          // Clean and split instructions into steps
+          const parsedInstructions = details.analyzedInstructions?.[0]?.steps?.map(step => step.step) || [];
+          setInstructions(parsedInstructions);
+      
+          // Extract ingredient descriptions
+          const parsedIngredients = details.extendedIngredients?.map(ing => ing.original) || [];
+          setIngredients(parsedIngredients);
+      
+        } catch (err) {
+          console.error('Error fetching data:', err);
+        }
+      };
+
     const [isLoggedIn, setIsLoggedIn] = useState(true); 
     const router = useRouter();
     useEffect(() => {
@@ -14,6 +56,7 @@ const Recipe = () => {
             router.push('/');
         }
     }, [isLoggedIn]);
+
     return (
         <>
         <Head>
@@ -21,7 +64,7 @@ const Recipe = () => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Document</title>
         </Head>
-        <div className = {styles.recipeBody}>
+        <div className={styles.recipeBody}>
         <header className={styles.hero}>
         <nav className={styles.navbar}>
         <ul>
@@ -37,81 +80,42 @@ const Recipe = () => {
         <div className={styles.search_container}>
         <h1>Search for a Recipe</h1>
         <div className={styles.search_box}>
-            <input type="text" placeholder="Enter meal or item name" />
-        <button>Search</button>
+            <input
+             type="text" 
+             placeholder="Enter meal or item name" 
+             value={query}
+             onChange={handleInputChange}/>
+        <button onClick={handleSearch}>Search</button>
         </div>
         </div>
         </header>
-
         <section className={styles.instructions}>
-        <h2>Searched Meal Recipe</h2>
-        <ul>
-        <li>Instruction 1</li>
-        <li>Instruction 2</li>
-        <li>Instruction 3</li>
-        <li>Instruction 4</li>
-        </ul>
+            <h2>{recipeTitle ? `${recipeTitle} Recipe` : 'Searched Meal Recipe'}</h2>
+            <ul>
+             {instructions.length > 0 ? (
+             instructions.map((step, index) => (
+            <li key={index}>{step}</li>
+            ))
+            ) : (
+            <li>No instructions found.</li>
+             )}
+         </ul>
         </section>
-
         <section className={styles.ingredients}>
         <h2>Needed Ingredients</h2>
         <div className={styles.grid}>
-            <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
+        {ingredients.length > 0 ? (
+         ingredients.map((item, index) => (
+            <div className={styles.card} key={index}>
             <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
-            <h3>Recipe Item</h3>
-            <p>Description</p>
+            <h3>{item}</h3>
+            <p>{/* maybe add more later like grocery isle*/}</p>
             <button>Add to Cart</button>
         </div>
-        <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
-            <h3>Recipe Item</h3>
-            <p>Description</p>
-        <button>Add to Cart</button>
-        </div>
-        <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
-            <h3>Recipe Item</h3>
-            <p>Description</p>
-            <button>Add to Cart</button>
-        </div>
-        <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
-            <h3>Recipe Item</h3>
-            <p>Description</p>
-            <button>Add to Cart</button>
-        </div>
-        <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/> 
-            <h3>Recipe Item</h3>
-            <p>Description</p>
-            <button>Add to Cart</button>
-        </div>
-        <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
-            <h3>Recipe Item</h3>
-            <p>Description</p>
-            <button>Add to Cart</button>
-        </div>
-        <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>           
-            <h3>Recipe Item</h3>
-            <p>Description</p>
-            <button>Add to Cart</button>
-        </div>
-        <div className={styles.card}>
-            {/* <img src="images/ingredient.jpg" alt="Ingredient Image" /> */}
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
-            <h3>Recipe Item</h3>
-            <p>Description</p>
-            <button>Add to Cart</button>
-        </div>
+        ))
+        ) : (
+        <p>No ingredients found.</p>
+        )}
         </div>
         <div className={styles.order_button}>
         <button>Order Recipe</button>
