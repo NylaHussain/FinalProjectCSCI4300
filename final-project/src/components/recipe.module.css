@@ -123,6 +123,7 @@
 
   .card img{
     border-radius: 20%;
+    object-fit: cover;
   }
   
   .card h3 {

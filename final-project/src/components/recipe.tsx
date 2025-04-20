@@ -29,19 +29,20 @@ const Recipe = () => {
           if (!recipe) return alert('No recipe found.');
       
           const { id, title } = recipe;
-          setRecipeTitle(title); // store the name
+          setRecipeTitle(title); 
       
           const detailsResponse = await fetch(
             `https://api.spoonacular.com/recipes/${id}/information?apiKey=a21c910dbf564ef1be6ec33b24caf0ed`
           );
           const details = await detailsResponse.json();
       
-          // Clean and split instructions into steps
           const parsedInstructions = details.analyzedInstructions?.[0]?.steps?.map(step => step.step) || [];
           setInstructions(parsedInstructions);
       
-          // Extract ingredient descriptions
-          const parsedIngredients = details.extendedIngredients?.map(ing => ing.original) || [];
+          const parsedIngredients = details.extendedIngredients?.map(ing => ({
+            name: ing.name,
+            image: `https://spoonacular.com/cdn/ingredients_100x100/${ing.image}`
+          })) || [];
           setIngredients(parsedIngredients);
       
         } catch (err) {
@@ -107,8 +108,9 @@ const Recipe = () => {
         {ingredients.length > 0 ? (
          ingredients.map((item, index) => (
             <div className={styles.card} key={index}>
-            <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/>
-            <h3>{item}</h3>
+            <Image src={item.image} alt={item.name} width={120}height={100}/>
+            {/* <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/> */}
+            <h3>{item.name}</h3>
             <p>{/* maybe add more later like grocery isle*/}</p>
             <button>Add to Cart</button>
         </div>
