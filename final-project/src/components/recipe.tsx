@@ -26,7 +26,8 @@ const Recipe = () => {
       const newItem = {
         id: Date.now(),
         food: ingredient.name,
-        image: ingredient.image
+        image: ingredient.image,
+        quantity: 1
       };
     
       const updatedItems = [...storedItems, newItem];
