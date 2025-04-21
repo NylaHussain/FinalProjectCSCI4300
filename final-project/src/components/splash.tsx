@@ -16,7 +16,7 @@ const Splash = () => {
   }; 
 
   const handleSignUpClick = () => {
-    router.push('/');
+    router.push('/signup');
   };
 
     return (

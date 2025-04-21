@@ -1,0 +1,42 @@
+.container {
+    font-family: "Boldonse", system-ui;
+    background-color: whitesmoke;
+    color: #000;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('/images/pantryImg.jpg');
+    background-size: cover; 
+    background-position: center;
+  }
+  
+  .formContainer {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .formContainer h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .formInput {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .submitButton {
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
