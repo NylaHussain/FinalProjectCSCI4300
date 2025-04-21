@@ -18,7 +18,10 @@ const ItemForm = () => {
 
   // Print initial items on first render
   useEffect(() => {
-    console.log('Initial items:', items);
+    const storedItems = localStorage.getItem('pantryItems');
+    if (storedItems) {
+      setItems(JSON.parse(storedItems));
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -47,6 +50,12 @@ const ItemForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Prevent duplicates (case-insensitive)
+  if (items.some(item => item.food.toLowerCase() === formData.food.toLowerCase())) {
+    alert('Item already exists in pantry!');
+    return;
+  }
+
     const newItem = {
       id: items.length + 1,
       food: formData.food,
@@ -56,6 +65,8 @@ const ItemForm = () => {
 
     const updatedItems = [...items, newItem];
     setItems(updatedItems);
+    localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
+    setFormData({ food: '', image: '' });
     console.log('Updated items:', updatedItems);
 
     // Clear form
@@ -65,6 +76,7 @@ const ItemForm = () => {
   const handleRemove = (id) => {
     const updatedItems = items.filter(item => item.id !== id);
     setItems(updatedItems);
+    localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
     console.log('Item removed:', id);
   };
 

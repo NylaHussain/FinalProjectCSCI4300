@@ -13,6 +13,27 @@ const Recipe = () => {
     const [instructions, setInstructions] = useState([]);
     const [ingredients, setIngredients] = useState([]); 
 
+    const handleAddToPantry = (ingredient) => {
+      const storedItems = JSON.parse(localStorage.getItem('pantryItems')) || [];
+    
+      // Check for duplicates (case-insensitive)
+      const alreadyExists = storedItems.some(i => i.food.toLowerCase() === ingredient.name.toLowerCase());
+      if (alreadyExists) {
+        alert(`${ingredient.name} is already in your pantry!`);
+        return;
+      }
+    
+      const newItem = {
+        id: Date.now(),
+        food: ingredient.name,
+        image: ingredient.image
+      };
+    
+      const updatedItems = [...storedItems, newItem];
+      localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
+      alert(`${ingredient.name} added to pantry!`);
+    };
+
     const handleInputChange = (e) => {
         setQuery(e.target.value);
     };
@@ -111,7 +132,7 @@ const Recipe = () => {
             {/* <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/> */}
             <h3>{item.name}</h3>
             <p>{/* maybe add more later like grocery isle*/}</p>
-            <button>Add to Pantry</button>
+            <button onClick={() => handleAddToPantry(item)}>Add to Pantry</button>
         </div>
         ))
         ) : (
