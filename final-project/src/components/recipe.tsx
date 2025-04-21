@@ -5,7 +5,6 @@ import styles from './recipe.module.css'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-  
 
 const Recipe = () => {
 
@@ -120,7 +119,7 @@ const Recipe = () => {
         )}
         </div>
         <div className={styles.order_button}>
-        <button>Order Recipe</button>
+        <button>Add All to Pantry</button>
         </div>
         </section>
         </div>

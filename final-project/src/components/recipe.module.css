@@ -146,6 +146,10 @@
     cursor: pointer;
     font-weight: 600;
   }
+
+  .card button:hover {
+    background-color: rgb(78, 78, 78);
+  }
   
   .order_button {
     text-align: center;
@@ -161,6 +165,10 @@
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
+  }
+
+  .order_button button:hover {
+    background-color: rgb(78, 78, 78);
   }
 
   .navbar {
