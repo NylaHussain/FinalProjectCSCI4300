@@ -112,7 +112,7 @@ const Recipe = () => {
             {/* <Image src="/images/foodIcon.jpg" alt="Ingredient Image" width={120} height={100}/> */}
             <h3>{item.name}</h3>
             <p>{/* maybe add more later like grocery isle*/}</p>
-            <button>Add to Cart</button>
+            <button>Add to Pantry</button>
         </div>
         ))
         ) : (
