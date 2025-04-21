@@ -118,4 +118,28 @@
     background-color: #7f2f2f;
   }
 
+  .quantityContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  
+  .qtyBtn {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  
+  .qtyNumber {
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+  }
+  
+
   

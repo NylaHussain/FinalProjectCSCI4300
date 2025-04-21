@@ -9,9 +9,9 @@ import { useRouter } from 'next/navigation';
 const ItemForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [items, setItems] = useState([
-    { id: 1, food: 'Apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg' },
-    { id: 2, food: 'Banana', image: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg' },
-    { id: 3, food: 'Carrot', image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+    { id: 1, food: 'Apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg', quantity: 1 },
+    { id: 2, food: 'Banana', image: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg', quantity: 1 },
+    { id: 3, food: 'Carrot', image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', quantity: 1 }
   ]);
 
   const [formData, setFormData] = useState({ food: '', image: '' });
@@ -26,14 +26,33 @@ const ItemForm = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleIncrease = (id) => {
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+  
+  const handleDecrease = (id) => {
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.id === id && item.quantity > 0
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newItem = {
       id: items.length + 1,
       food: formData.food,
-      image: formData.image
-    };
+      image: formData.image,
+      quantity: 1
+    };   
 
     const updatedItems = [...items, newItem];
     setItems(updatedItems);
@@ -119,6 +138,13 @@ const ItemForm = () => {
   className={styles.gridImage}
 />
       <p>{item.food}</p>
+
+      <div className={styles.quantityContainer}>
+      <button onClick={() => handleDecrease(item.id)} className={styles.qtyBtn}>-</button>
+      <span className={styles.qtyNumber}>{item.quantity}</span>
+      <button onClick={() => handleIncrease(item.id)} className={styles.qtyBtn}>+</button>
+    </div>
+
       <button onClick={() => handleRemove(item.id)} className={styles.removeBtn}>
         Remove
       </button>
