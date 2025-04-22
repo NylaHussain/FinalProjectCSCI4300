@@ -95,14 +95,21 @@ const Recipe = () => {
             name: ing.name,
             image: `https://spoonacular.com/cdn/ingredients_100x100/${ing.image}`
           })) || [];
+          console.log('Parsed Ingredients:', parsedIngredients);
+
           
-          const pantryResponse = await fetch("/api/items"); // Assuming you have an API route to get pantry items
-          const pantryItems = await pantryResponse.json();
-
+          const pantryResponse = await fetch("/api/items");
+          const pantryData = await pantryResponse.json();
+          const pantryItems = pantryData.items || [];  // Ensure it's an array
+          console.log("pantry data", pantryItems);
+          
           const filteredIngredients = parsedIngredients.filter(ingredient => 
-            !pantryItems.some(pantryItem => pantryItem.item.toLowerCase() === ingredient.name.toLowerCase())
+            !pantryItems.some(pantryItem => 
+              pantryItem.item.toLowerCase().includes(ingredient.name.toLowerCase())
+            )
           );
-
+          
+          console.log("filtered", filteredIngredients);
           setIngredients(filteredIngredients);
       
         } catch (err) {
