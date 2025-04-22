@@ -1,24 +1,18 @@
-import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
-import User from "@/app/models/userSchema";
 import connectMongoDB from "../../../../../config/mongodb";
+import Item from "@/app/models/itemSchema";
+import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
-export async function POST(req: Request) {
-    const { email, password } = await req.json();
-    try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      await connectMongoDB();
-  
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return NextResponse.json({ error: 'User already exists' }, { status: 400 });
-      }
-  
-      const newUser = new User({ email, password: hashedPassword });
-      await newUser.save();
-  
-      return NextResponse.json({ message: 'User created' }, { status: 201 });
-    } catch (err) {
-      return NextResponse.json({ error: 'Server error' }, { status: 500 });
-    }
+
+export async function POST(request: NextRequest) {
+  const { item, quantity, url } = await request.json();
+  await connectMongoDB();
+  await Item.create({ item, quantity, url });
+  return NextResponse.json({ message: "Item added successfully" }, { status: 201 });
+}
+
+export async function GET() {
+    await connectMongoDB();
+    const items = await Item.find();
+    return NextResponse.json({ items });
   }
