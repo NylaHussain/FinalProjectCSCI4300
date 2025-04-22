@@ -136,38 +136,6 @@ const ItemForm = () => {
     }
   };
 
-  // const handleRemove = async (_id: string) => {
-  //   console.log("fetch", `/api/items/${_id}`);
-  //   try {
-  //     // Perform the DELETE request
-  //     const res = await fetch(`/api/items/${_id}`, {
-  //       method: 'DELETE',
-  //     });
-  
-  //     // Check if the response is okay (status 2xx)
-  //     if (!res.ok) {
-  //       // If not okay, log error message or response body for debugging
-  //       const errText = await res.text();
-  //       throw new Error(`HTTP ${res.status} • ${errText}`);
-  //     }
-  
-  //     // If status is 204 (No Content), there's no body to parse
-  //     if (res.status !== 204) {
-  //       const data = await res.json();
-  //       console.log("Deleted item:", data.message);
-  //     }
-  
-  //     // Update the UI (remove item from state)
-  //     setItems(prev => prev.filter(item => item._id !== _id));
-  //     console.log("Deleted item with id:", _id);
-  
-  //   } catch (err) {
-  //     // Handle errors (e.g., network issues, parsing errors)
-  //     console.error('Delete error:', err);
-  //     alert('Could not delete item. Please try again.');
-  //   }
-  // };
-
   const handleRemove = async (id) => {
     try {
       const res = await fetch(`../api/items/${id}`, {
@@ -185,7 +153,6 @@ const ItemForm = () => {
   
       console.log('Item deleted successfully');
   
-      // ✅ Remove from UI
       setItems(prevItems => prevItems.filter(item => item.id !== id));
     } catch (err) {
       console.error('Delete error:', err.message);
