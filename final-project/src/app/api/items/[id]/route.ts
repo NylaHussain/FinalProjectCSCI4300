@@ -10,9 +10,9 @@ interface RouteParams {
 
 export async function PUT(request:NextRequest, { params}:RouteParams ) {
   const { id } = await params;
-  const { owner: owner, title: title, description: description, url: url } = await request.json();
+  const { owner: owner, item: item, quantity: quantity, url: url } = await request.json();
   await connectMongoDB();
-  await Item.findByIdAndUpdate(id, { owner, title, description, url });
+  await Item.findByIdAndUpdate(id, { owner, item, quantity, url });
   return NextResponse.json({ message: "Item updated" }, { status: 200 });
 }
 
@@ -23,19 +23,31 @@ export async function GET(request:NextRequest, { params }:RouteParams) {
   return NextResponse.json({ item }, { status: 200 });
 }
 
-export async function DELETE(request: NextRequest, { params }: RouteParams) {
-    const { id } = params;
+// export async function DELETE(request: NextRequest, { params }: RouteParams) {
+//     const { id } = params;
   
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json({ message: "Invalid ID format" }, { status: 400 });
-    }
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//       return NextResponse.json({ message: "Invalid ID format" }, { status: 400 });
+//     }
   
+//     await connectMongoDB();
+//     const deletedItem = await Item.findByIdAndDelete(id);
+  
+//     if (!deletedItem) {
+//       return NextResponse.json({ message: "Item not found" }, { status: 404 });
+//     }
+  
+//     return NextResponse.json({ message: "Item deleted" }, { status: 200 });
+//   }
+
+export async function DELETE(request, { params }) {
+  const { id } = params;
+
+  try {
     await connectMongoDB();
-    const deletedItem = await Item.findByIdAndDelete(id);
-  
-    if (!deletedItem) {
-      return NextResponse.json({ message: "Item not found" }, { status: 404 });
-    }
-  
-    return NextResponse.json({ message: "Item deleted" }, { status: 200 });
+    await Item.findByIdAndDelete(id);
+    return NextResponse.json({ message: "Item deleted successfully" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to delete item" }, { status: 500 });
   }
+}
