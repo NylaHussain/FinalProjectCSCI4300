@@ -6,13 +6,8 @@ import styles from './splash.module.css';
 
 const Splash = () => {
   const router = useRouter();
-  var isLoggedIn = true; 
   const handleLoginClick = () => {
-    if (isLoggedIn) {
-    router.push('/welcome'); 
-    } else {
-      router.push('/');
-    }
+    router.push('/login'); 
   }; 
 
   const handleSignUpClick = () => {

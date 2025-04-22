@@ -1,18 +1,23 @@
-import connectMongoDB from "../../../../../config/mongodb";
-import Item from "@/app/models/itemSchema";
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
+import bcrypt from "bcryptjs";
+import User from "@/app/models/userSchema";
+import connectMongoDB from "../../../../../config/mongodb";
 
+export async function POST(req: Request) {
+  const { username, email, password } = await req.json();
 
-export async function POST(request: NextRequest) {
-  const { item, quantity, url } = await request.json();
-  await connectMongoDB();
-  await Item.create({ item, quantity, url });
-  return NextResponse.json({ message: "Item added successfully" }, { status: 201 });
-}
-
-export async function GET() {
-    await connectMongoDB();
-    const items = await Item.find();
-    return NextResponse.json({ items });
+  if (!username || !email || !password) {
+    return NextResponse.json({ message: "Missing fields" }, { status: 400 });
   }
+
+  await connectMongoDB();
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    return NextResponse.json({ message: "User already exists" }, { status: 409 });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await User.create({ username, email, password: hashedPassword });
+
+  return NextResponse.json({ message: "User created" }, { status: 201 });
+}
