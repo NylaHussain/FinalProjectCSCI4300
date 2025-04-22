@@ -77,7 +77,7 @@ const ItemForm = () => {
   
       // Transform DB format to match your local item format
       const formattedItems = data.items.map((dbItem, index) => ({
-        id: index + 1, // or use dbItem._id if needed
+        id: dbItem._id,
         food: dbItem.item,
         image: dbItem.url,
         quantity: parseInt(dbItem.quantity),
@@ -144,21 +144,37 @@ const ItemForm = () => {
   // };
 
   const handleRemove = async (_id: string) => {
+    console.log("fetch", `/api/items/${_id}`);
     try {
-      const res = await fetch(`../api/items/${_id}`, {
+      // Perform the DELETE request
+      const res = await fetch(`/api/items/${_id}`, {
         method: 'DELETE',
       });
   
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
+      // Check if the response is okay (status 2xx)
+      if (!res.ok) {
+        // If not okay, log error message or response body for debugging
+        const errText = await res.text();
+        throw new Error(`HTTP ${res.status} • ${errText}`);
+      }
   
+      // If status is 204 (No Content), there's no body to parse
+      if (res.status !== 204) {
+        const data = await res.json();
+        console.log("Deleted item:", data.message);
+      }
+  
+      // Update the UI (remove item from state)
       setItems(prev => prev.filter(item => item._id !== _id));
-      console.log("Deleted:", _id);
+      console.log("Deleted item with id:", _id);
+  
     } catch (err) {
-      console.error("Delete error:", err);
+      // Handle errors (e.g., network issues, parsing errors)
+      console.error('Delete error:', err);
+      alert('Could not delete item. Please try again.');
     }
   };
-
+     
  const router = useRouter();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -219,14 +235,16 @@ const ItemForm = () => {
         </div>
       </div>
       <div className={styles.grid}>
-          {items.map(item => (
-    <div key={item.id} className={styles.gridItem}>
-      <Image
-  src={item.image}
-  alt={item.food}
-  width={100}
-  height={100}
-  className={styles.gridImage}
+          {items.map(item => {
+          console.log("item id", item.id);
+          return (
+          <div key={item.id} className={styles.gridItem}>
+          <Image
+          src={item.image}
+          alt={item.food}
+          width={100}
+          height={100}
+          className={styles.gridImage}
 />
       <p>{item.food}</p>
 
@@ -236,11 +254,12 @@ const ItemForm = () => {
       <button onClick={() => handleIncrease(item.id)} className={styles.qtyBtn}>+</button>
     </div>
 
-      <button onClick={() => handleRemove(item._id)} className={styles.removeBtn}>
+      <button onClick={() => handleRemove(item.id)} className={styles.removeBtn}>
         Remove
       </button>
     </div>
-  ))}
+    );
+  })}
 </div>
     </>
   );
