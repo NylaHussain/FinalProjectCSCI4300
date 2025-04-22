@@ -1,3 +1,4 @@
+
 import connectMongoDB from "../../../../config/mongodb";
 import Item from "@/app/models/itemSchema";
 import { NextResponse } from "next/server";
@@ -16,3 +17,6 @@ export async function GET() {
     const items = await Item.find();
     return NextResponse.json({ items });
   }
+
+
+

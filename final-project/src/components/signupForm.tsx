@@ -1,49 +1,103 @@
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import styles from "./signupForm.module.css"
+"use client";
+import Link from "next/link";
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string>("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+
     try {
-      const res = await fetch('/api/signup', {
+      const formData = new FormData(event.currentTarget);
+      const userData = {
+        username: formData.get("username") as string,
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+      };
+
+
+      const response = await fetch('/api/items/signup', {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
       });
-      if (res.ok) router.push('/welcome');
-      else alert('Signup failed');
-    } catch (err) {
-      console.error(err);
+
+      const data = await response.json();
+
+      if (data.message === "User created") {
+        router.push('/login'); 
+      } else {
+        setError(data.message || "An error occurred");
+      }
+    } catch (e) {
+      setError("An error occurred during signup.");
     }
-  };
+  }
 
   return (
-<form onSubmit={handleSubmit} className={styles['form-container']}>
-    <h2>Sign Up</h2>
-    <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        className={styles.formInput}
-    />
-    <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        className={styles.formInput}
-    />
-    <button type="submit">Sign Up</button>
-</form>
+    <div className="grid mt-8 justify-items-center">
+      <div className="shadow-lg p-5 rounded-lg border-t-4 bg-white border-red-700">
+        <h1 className="text-xl text-slate-600 font-bold my-4">Signup</h1>
+        {error && <div className="text-lg text-red-500">{error}</div>}
+        <form
+          onSubmit={onSubmit}
+          className="my-8 max-w-md mx-auto flex flex-col gap-4 border p-6 border-gray-300 rounded-md shadow-sm bg-white"
+        >
+          <div className="flex flex-col">
+            <label htmlFor="username" className="mb-1 text-sm font-medium text-gray-700">Username</label>
+            <input
+              className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">Email Address</label>
+            <input
+              className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label htmlFor="password" className="mb-1 text-sm font-medium text-gray-700">Password</label>
+            <input
+              className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="bg-red-700 text-white rounded px-4 py-2 mt-2 hover:bg-red-800 transition"
+          >
+            Signup
+          </button>
+        </form>
+
+        <p className="my-3 text-center">
+          Already have an account?
+          <Link href="/login" className="mx-2 underline">Login</Link>
+        </p>
+      </div>
+    </div>
   );
 };
 
