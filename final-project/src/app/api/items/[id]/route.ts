@@ -40,20 +40,48 @@ export async function GET(request:NextRequest, { params }:RouteParams) {
 //     return NextResponse.json({ message: "Item deleted" }, { status: 200 });
 //   }
 
-export async function DELETE(_request, { params }) {
-  const { id } = params;
-  await connectMongoDB();
+// export async function DELETE(_request, { params }) {
+//   const { id } = params;
+//   await connectMongoDB();
 
+//   try {
+//     const deletedItem = await Item.findByIdAndDelete(id);
+
+//     if (!deletedItem) {
+//       return NextResponse.json({ message: 'Item not found' }, { status: 404 });
+//     }
+
+//     return NextResponse.json({ message: 'Item deleted' }, { status: 200 });
+//   } catch (err) {
+//     console.error('Delete failed:', err);
+//     return NextResponse.json({ message: 'Delete failed' }, { status: 500 });
+//   }
+// }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const deletedItem = await Item.findByIdAndDelete(id);
+    const { id } = params;
+
+    // Validate ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ message: 'Invalid ID format' }, { status: 400 });
+    }
+
+    await connectMongoDB();
+
+    // Convert to ObjectId
+    const deletedItem = await Item.findByIdAndDelete(new mongoose.Types.ObjectId(id));
 
     if (!deletedItem) {
       return NextResponse.json({ message: 'Item not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ message: 'Item deleted' }, { status: 200 });
-  } catch (err) {
-    console.error('Delete failed:', err);
-    return NextResponse.json({ message: 'Delete failed' }, { status: 500 });
+    return NextResponse.json({ message: 'Item deleted successfully' }, { status: 200 });
+  } catch (error) {
+    console.error('Error deleting item:', error);
+    return NextResponse.json({ message: 'Server error' }, { status: 500 });
   }
 }
