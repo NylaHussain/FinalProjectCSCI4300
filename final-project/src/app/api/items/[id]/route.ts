@@ -62,6 +62,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  console.log("DELETE route called with ID:", params.id);
   try {
     const { id } = params;
 

@@ -169,9 +169,8 @@ const ItemForm = () => {
   // };
 
   const handleRemove = async (id) => {
-    console.log("fetch", `/api/items/${id}`);
     try {
-      const res = await fetch(`/api/items/${id}`, {
+      const res = await fetch(`../api/items/${id}`, {
         method: 'DELETE',
       });
   
@@ -179,17 +178,21 @@ const ItemForm = () => {
         const contentType = res.headers.get('Content-Type');
         const errorMessage = contentType?.includes('application/json')
           ? (await res.json()).message
-          : await res.text(); // fallback if it's HTML
+          : await res.text();
   
         throw new Error(errorMessage || 'Unknown error');
       }
   
       console.log('Item deleted successfully');
-      // Optionally update UI
+  
+      // ✅ Remove from UI
+      setItems(prevItems => prevItems.filter(item => item.id !== id));
     } catch (err) {
       console.error('Delete error:', err.message);
+      alert('Could not delete item. Please try again.');
     }
   };
+  
   
      
  const router = useRouter();
