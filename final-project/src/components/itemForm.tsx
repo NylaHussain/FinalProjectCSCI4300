@@ -136,44 +136,61 @@ const ItemForm = () => {
     }
   };
 
-  // const handleRemove = (id) => {
-  //   const updatedItems = items.filter(item => item.id !== id);
-  //   setItems(updatedItems);
-  //   localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
-  //   console.log('Item removed:', id);
+  // const handleRemove = async (_id: string) => {
+  //   console.log("fetch", `/api/items/${_id}`);
+  //   try {
+  //     // Perform the DELETE request
+  //     const res = await fetch(`/api/items/${_id}`, {
+  //       method: 'DELETE',
+  //     });
+  
+  //     // Check if the response is okay (status 2xx)
+  //     if (!res.ok) {
+  //       // If not okay, log error message or response body for debugging
+  //       const errText = await res.text();
+  //       throw new Error(`HTTP ${res.status} • ${errText}`);
+  //     }
+  
+  //     // If status is 204 (No Content), there's no body to parse
+  //     if (res.status !== 204) {
+  //       const data = await res.json();
+  //       console.log("Deleted item:", data.message);
+  //     }
+  
+  //     // Update the UI (remove item from state)
+  //     setItems(prev => prev.filter(item => item._id !== _id));
+  //     console.log("Deleted item with id:", _id);
+  
+  //   } catch (err) {
+  //     // Handle errors (e.g., network issues, parsing errors)
+  //     console.error('Delete error:', err);
+  //     alert('Could not delete item. Please try again.');
+  //   }
   // };
 
-  const handleRemove = async (_id: string) => {
-    console.log("fetch", `/api/items/${_id}`);
+  const handleRemove = async (id) => {
+    console.log("fetch", `/api/items/${id}`);
     try {
-      // Perform the DELETE request
-      const res = await fetch(`/api/items/${_id}`, {
+      const res = await fetch(`/api/items/${id}`, {
         method: 'DELETE',
       });
   
-      // Check if the response is okay (status 2xx)
       if (!res.ok) {
-        // If not okay, log error message or response body for debugging
-        const errText = await res.text();
-        throw new Error(`HTTP ${res.status} • ${errText}`);
+        const contentType = res.headers.get('Content-Type');
+        const errorMessage = contentType?.includes('application/json')
+          ? (await res.json()).message
+          : await res.text(); // fallback if it's HTML
+  
+        throw new Error(errorMessage || 'Unknown error');
       }
   
-      // If status is 204 (No Content), there's no body to parse
-      if (res.status !== 204) {
-        const data = await res.json();
-        console.log("Deleted item:", data.message);
-      }
-  
-      // Update the UI (remove item from state)
-      setItems(prev => prev.filter(item => item._id !== _id));
-      console.log("Deleted item with id:", _id);
-  
+      console.log('Item deleted successfully');
+      // Optionally update UI
     } catch (err) {
-      // Handle errors (e.g., network issues, parsing errors)
-      console.error('Delete error:', err);
-      alert('Could not delete item. Please try again.');
+      console.error('Delete error:', err.message);
     }
   };
+  
      
  const router = useRouter();
   useEffect(() => {

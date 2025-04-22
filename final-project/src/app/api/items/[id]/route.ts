@@ -40,14 +40,20 @@ export async function GET(request:NextRequest, { params }:RouteParams) {
 //     return NextResponse.json({ message: "Item deleted" }, { status: 200 });
 //   }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(_request, { params }) {
   const { id } = params;
+  await connectMongoDB();
 
   try {
-    await connectMongoDB();
-    await Item.findByIdAndDelete(id);
-    return NextResponse.json({ message: "Item deleted successfully" }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ error: "Failed to delete item" }, { status: 500 });
+    const deletedItem = await Item.findByIdAndDelete(id);
+
+    if (!deletedItem) {
+      return NextResponse.json({ message: 'Item not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: 'Item deleted' }, { status: 200 });
+  } catch (err) {
+    console.error('Delete failed:', err);
+    return NextResponse.json({ message: 'Delete failed' }, { status: 500 });
   }
 }
