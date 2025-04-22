@@ -5,6 +5,8 @@ import styles from './recipe.module.css'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import connectMongoDB from '@/config/mongodb';
+import Item from '@/app/models/itemSchema';
 
 const Recipe = () => {
 
@@ -13,26 +15,47 @@ const Recipe = () => {
     const [instructions, setInstructions] = useState([]);
     const [ingredients, setIngredients] = useState([]); 
 
-    const handleAddToPantry = (ingredient) => {
-      const storedItems = JSON.parse(localStorage.getItem('pantryItems')) || [];
-    
-      // Check for duplicates (case-insensitive)
-      const alreadyExists = storedItems.some(i => i.food.toLowerCase() === ingredient.name.toLowerCase());
-      if (alreadyExists) {
-        alert(`${ingredient.name} is already in your pantry!`);
-        return;
-      }
-    
+    const handleAddToPantry = async (ingredient) => {
       const newItem = {
-        id: Date.now(),
-        food: ingredient.name,
-        image: ingredient.image,
-        quantity: 1
+        owner: 1,
+        item: ingredient.name,
+        quantity: "1",
+        url: ingredient.image,
       };
     
-      const updatedItems = [...storedItems, newItem];
-      localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
-      alert(`${ingredient.name} added to pantry!`);
+      const response = await fetch("/api/items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // ← THIS IS REQUIRED
+        },
+        body: JSON.stringify(newItem),
+      });
+    
+      const data = await response.json();
+      console.log("Server response:", data);
+    };
+
+    const handleAddAllToPantry = async () => {
+      try {
+        const promises = ingredients.map(ing =>
+          fetch("/api/items", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              owner: 1, // Replace this with dynamic ID later
+              item: ing.name,
+              quantity: "1",
+              url: ing.image,
+            }),
+          })
+        );
+    
+        await Promise.all(promises);
+        alert("All ingredients added to pantry!");
+      } catch (err) {
+        console.error("Error adding all to pantry:", err);
+        alert("Failed to add some or all ingredients.");
+      }
     };
 
     const handleInputChange = (e) => {
@@ -141,7 +164,7 @@ const Recipe = () => {
         )}
         </div>
         <div className={styles.order_button}>
-        <button>Add All to Pantry</button>
+        <button onClick={handleAddAllToPantry}>Add All to Pantry</button>
         </div>
         </section>
         </div>

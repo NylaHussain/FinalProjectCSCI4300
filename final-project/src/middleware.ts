@@ -4,7 +4,8 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
   const pathname = request.nextUrl.pathname;
 
-  const publicPaths = ['/', '/login', '/signup', '/images/recipe3.jpg', '/images/pantryImg.jpg];
+  const publicPaths = ['/', '/login', '/signup', '/images/recipe3.jpg', '/images/pantryImg.jpg', '/welcome', '/item-search', '/recipe-search', '/api/items'];
+
 
   if (!token && !publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL('/', request.url));

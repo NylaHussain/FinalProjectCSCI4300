@@ -3,9 +3,6 @@ import Splash from '../components/splash.tsx';
 
 export default function Home() {
   connectMongoDB();
-
-  // connectMongoDB();
-	// return;
   
   return (
     <Splash></Splash>

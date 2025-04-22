@@ -8,20 +8,14 @@ import { useRouter } from 'next/navigation';
 
 const ItemForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [items, setItems] = useState([
-    { id: 1, food: 'Apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg', quantity: 1 },
-    { id: 2, food: 'Banana', image: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg', quantity: 1 },
-    { id: 3, food: 'Carrot', image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', quantity: 1 }
-  ]);
+  const [items, setItems] = useState([]);
+
 
   const [formData, setFormData] = useState({ food: '', image: '' });
 
   // Print initial items on first render
   useEffect(() => {
-    const storedItems = localStorage.getItem('pantryItems');
-    if (storedItems) {
-      setItems(JSON.parse(storedItems));
-    }
+    fetchItemsFromDB(); // Load from MongoDB on page load
   }, []);
 
   const handleChange = (e) => {
@@ -47,39 +41,140 @@ const ItemForm = () => {
     );
   };  
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   // Prevent duplicates (case-insensitive)
+  // if (items.some(item => item.food.toLowerCase() === formData.food.toLowerCase())) {
+  //   alert('Item already exists in pantry!');
+  //   return;
+  // }
+
+  //   const newItem = {
+  //     id: items.length + 1,
+  //     food: formData.food,
+  //     image: formData.image,
+  //     quantity: 1
+  //   };   
+
+  //   const updatedItems = [...items, newItem];
+  //   setItems(updatedItems);
+  //   localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
+  //   setFormData({ food: '', image: '' });
+  //   console.log('Updated items:', updatedItems);
+
+  //   // Clear form
+  //   setFormData({ food: '', image: '' });
+  // };
+
+  const fetchItemsFromDB = async () => {
+    try {
+      const res = await fetch("/api/items"); // or use the full URL for testing
+      if (!res.ok) throw new Error("Failed to fetch items from DB");
+  
+      const data = await res.json();
+      console.log("Fetched from DB:", data.items);
+  
+      // Transform DB format to match your local item format
+      const formattedItems = data.items.map((dbItem, index) => ({
+        id: dbItem._id,
+        food: dbItem.item,
+        image: dbItem.url,
+        quantity: parseInt(dbItem.quantity),
+      }));
+  
+      setItems(formattedItems);
+    } catch (err) {
+      console.error("Error fetching items from DB:", err);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Prevent duplicates (case-insensitive)
-  if (items.some(item => item.food.toLowerCase() === formData.food.toLowerCase())) {
-    alert('Item already exists in pantry!');
-    return;
-  }
-
+    if (items.some(item => item.food.toLowerCase() === formData.food.toLowerCase())) {
+      alert('Item already exists in pantry!');
+      return;
+    }
+  
     const newItem = {
       id: items.length + 1,
       food: formData.food,
       image: formData.image,
-      quantity: 1
-    };   
-
+      quantity: 1,
+    };
+  
     const updatedItems = [...items, newItem];
     setItems(updatedItems);
     localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
     setFormData({ food: '', image: '' });
-    console.log('Updated items:', updatedItems);
-
-    // Clear form
-    setFormData({ food: '', image: '' });
+  
+    // ✅ Send to MongoDB
+    try {
+      const response = await fetch("../api/items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          owner: 1, // Replace with actual user ID when implemented
+          item: formData.food,
+          quantity: "1",
+          url: formData.image,
+        }),
+      });
+      const data = await response.json(); // 👈 parse the response
+      console.log("Response data:", data);
+      if (!response.ok) {
+        throw new Error("Failed to add item to database");
+      }
+  
+      console.log("Item saved to MongoDB");
+    } catch (err) {
+      console.error("MongoDB error:", err);
+    }
   };
 
-  const handleRemove = (id) => {
-    const updatedItems = items.filter(item => item.id !== id);
-    setItems(updatedItems);
-    localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
-    console.log('Item removed:', id);
-  };
+  // const handleRemove = (id) => {
+  //   const updatedItems = items.filter(item => item.id !== id);
+  //   setItems(updatedItems);
+  //   localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
+  //   console.log('Item removed:', id);
+  // };
 
+  const handleRemove = async (_id: string) => {
+    console.log("fetch", `/api/items/${_id}`);
+    try {
+      // Perform the DELETE request
+      const res = await fetch(`/api/items/${_id}`, {
+        method: 'DELETE',
+      });
+  
+      // Check if the response is okay (status 2xx)
+      if (!res.ok) {
+        // If not okay, log error message or response body for debugging
+        const errText = await res.text();
+        throw new Error(`HTTP ${res.status} • ${errText}`);
+      }
+  
+      // If status is 204 (No Content), there's no body to parse
+      if (res.status !== 204) {
+        const data = await res.json();
+        console.log("Deleted item:", data.message);
+      }
+  
+      // Update the UI (remove item from state)
+      setItems(prev => prev.filter(item => item._id !== _id));
+      console.log("Deleted item with id:", _id);
+  
+    } catch (err) {
+      // Handle errors (e.g., network issues, parsing errors)
+      console.error('Delete error:', err);
+      alert('Could not delete item. Please try again.');
+    }
+  };
+     
  const router = useRouter();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -140,14 +235,16 @@ const ItemForm = () => {
         </div>
       </div>
       <div className={styles.grid}>
-          {items.map(item => (
-    <div key={item.id} className={styles.gridItem}>
-      <Image
-  src={item.image}
-  alt={item.food}
-  width={100}
-  height={100}
-  className={styles.gridImage}
+          {items.map(item => {
+          console.log("item id", item.id);
+          return (
+          <div key={item.id} className={styles.gridItem}>
+          <Image
+          src={item.image}
+          alt={item.food}
+          width={100}
+          height={100}
+          className={styles.gridImage}
 />
       <p>{item.food}</p>
 
@@ -161,7 +258,8 @@ const ItemForm = () => {
         Remove
       </button>
     </div>
-  ))}
+    );
+  })}
 </div>
     </>
   );
