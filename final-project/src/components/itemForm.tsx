@@ -15,7 +15,7 @@ const ItemForm = () => {
 
   // Print initial items on first render
   useEffect(() => {
-    fetchItemsFromDB(); // Load from MongoDB on page load
+    fetchItemsFromDB(); 
   }, []);
 
   const handleChange = (e) => {
@@ -41,41 +41,16 @@ const ItemForm = () => {
     );
   };  
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   // Prevent duplicates (case-insensitive)
-  // if (items.some(item => item.food.toLowerCase() === formData.food.toLowerCase())) {
-  //   alert('Item already exists in pantry!');
-  //   return;
-  // }
-
-  //   const newItem = {
-  //     id: items.length + 1,
-  //     food: formData.food,
-  //     image: formData.image,
-  //     quantity: 1
-  //   };   
-
-  //   const updatedItems = [...items, newItem];
-  //   setItems(updatedItems);
-  //   localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
-  //   setFormData({ food: '', image: '' });
-  //   console.log('Updated items:', updatedItems);
-
-  //   // Clear form
-  //   setFormData({ food: '', image: '' });
-  // };
+  
 
   const fetchItemsFromDB = async () => {
     try {
-      const res = await fetch("/api/items"); // or use the full URL for testing
+      const res = await fetch("/api/items"); 
       if (!res.ok) throw new Error("Failed to fetch items from DB");
   
       const data = await res.json();
       console.log("Fetched from DB:", data.items);
   
-      // Transform DB format to match your local item format
       const formattedItems = data.items.map((dbItem, index) => ({
         id: dbItem._id,
         food: dbItem.item,
@@ -110,7 +85,6 @@ const ItemForm = () => {
     localStorage.setItem('pantryItems', JSON.stringify(updatedItems));
     setFormData({ food: '', image: '' });
   
-    // ✅ Send to MongoDB
     try {
       const response = await fetch("../api/items", {
         method: "POST",
@@ -118,13 +92,13 @@ const ItemForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          owner: 1, // Replace with actual user ID when implemented
+          owner: 1, 
           item: formData.food,
           quantity: "1",
           url: formData.image,
         }),
       });
-      const data = await response.json(); // 👈 parse the response
+      const data = await response.json(); 
       console.log("Response data:", data);
       if (!response.ok) {
         throw new Error("Failed to add item to database");
@@ -136,37 +110,7 @@ const ItemForm = () => {
     }
   };
 
-  // const handleRemove = async (_id: string) => {
-  //   console.log("fetch", `/api/items/${_id}`);
-  //   try {
-  //     // Perform the DELETE request
-  //     const res = await fetch(`/api/items/${_id}`, {
-  //       method: 'DELETE',
-  //     });
   
-  //     // Check if the response is okay (status 2xx)
-  //     if (!res.ok) {
-  //       // If not okay, log error message or response body for debugging
-  //       const errText = await res.text();
-  //       throw new Error(`HTTP ${res.status} • ${errText}`);
-  //     }
-  
-  //     // If status is 204 (No Content), there's no body to parse
-  //     if (res.status !== 204) {
-  //       const data = await res.json();
-  //       console.log("Deleted item:", data.message);
-  //     }
-  
-  //     // Update the UI (remove item from state)
-  //     setItems(prev => prev.filter(item => item._id !== _id));
-  //     console.log("Deleted item with id:", _id);
-  
-  //   } catch (err) {
-  //     // Handle errors (e.g., network issues, parsing errors)
-  //     console.error('Delete error:', err);
-  //     alert('Could not delete item. Please try again.');
-  //   }
-  // };
 
   const handleRemove = async (id) => {
     try {
@@ -185,7 +129,6 @@ const ItemForm = () => {
   
       console.log('Item deleted successfully');
   
-      // ✅ Remove from UI
       setItems(prevItems => prevItems.filter(item => item.id !== id));
     } catch (err) {
       console.error('Delete error:', err.message);

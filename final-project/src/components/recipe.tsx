@@ -17,9 +17,9 @@ const Recipe = () => {
 
     const handleAddToPantry = async (ingredient) => {
       const newItem = {
-        owner: 1, // Replace with actual user ID when implemented
+        owner: 1, 
         item: ingredient.name,
-        quantity: "1",  // Assuming default quantity is 1
+        quantity: "1",  
         url: ingredient.image,
       };
 
@@ -27,7 +27,7 @@ const Recipe = () => {
         const response = await fetch("../api/items", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json", // Required for the request to be understood
+            "Content-Type": "application/json", 
           },
           body: JSON.stringify(newItem),
         });
@@ -50,7 +50,7 @@ const Recipe = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              owner: 1, // Replace this with dynamic ID later
+              owner: 1, 
               item: ing.name,
               quantity: "1",
               url: ing.image,
@@ -100,7 +100,7 @@ const Recipe = () => {
           
           const pantryResponse = await fetch("/api/items");
           const pantryData = await pantryResponse.json();
-          const pantryItems = pantryData.items || [];  // Ensure it's an array
+          const pantryItems = pantryData.items || [];  
           console.log("pantry data", pantryItems);
           
           const filteredIngredients = parsedIngredients.filter(ingredient => 

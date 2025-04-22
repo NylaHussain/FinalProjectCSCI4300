@@ -1,4 +1,4 @@
-import ItemForm from '../../components/itemForm'; // assuming it's in the same folder
+import ItemForm from '../../components/itemForm'; 
 
 export default function ItemPage() {
   return <ItemForm></ItemForm>;

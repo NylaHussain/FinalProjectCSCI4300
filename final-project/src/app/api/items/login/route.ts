@@ -127,13 +127,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
     }
 
-    // Compare hashed password in the database with the input password
+    //Compare hashed password in  database with the input password
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
     }
 
-    // Generate JWT token
+    //Generate JWT token
     const token = jwt.sign(
       { username: user.username, email: user.email },
       process.env.JWT_SECRET as string,
@@ -145,8 +145,9 @@ export async function POST(request: Request) {
     // Set token in cookies
     response.cookies.set('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',  // Set to true in production for HTTPS
-      maxAge: 3600,  // 1 hour expiry
+      secure: process.env.NODE_ENV === 'production',
+      //1 hour time
+      maxAge: 3600,
       path: '/',
     });
 

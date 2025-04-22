@@ -1,6 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-// Mongoose provides properties such as the _id in Document, we extend this
 interface IItem extends Document {
   owner: number;
   item: string;

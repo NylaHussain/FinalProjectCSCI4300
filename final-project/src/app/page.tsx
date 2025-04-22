@@ -1,5 +1,5 @@
 import connectMongoDB from '../../config/mongodb.ts';
-import Splash from '../components/splash.tsx';
+import Splash from '../components/splash';
 
 export default function Home() {
   connectMongoDB();
