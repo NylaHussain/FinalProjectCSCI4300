@@ -17,27 +17,35 @@ const Recipe = () => {
 
     const handleAddToPantry = async (ingredient) => {
       const newItem = {
-        owner: 1,
+        owner: 1, // Replace with actual user ID when implemented
         item: ingredient.name,
-        quantity: "1",
+        quantity: "1",  // Assuming default quantity is 1
         url: ingredient.image,
       };
-    
-      const response = await fetch("/api/items", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // ← THIS IS REQUIRED
-        },
-        body: JSON.stringify(newItem),
-      });
-    
-      const data = await response.json();
-      console.log("Server response:", data);
+
+      try {
+        const response = await fetch("../api/items", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Required for the request to be understood
+          },
+          body: JSON.stringify(newItem),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          console.log("Item added to pantry:", data);
+        } else {
+          console.error("Error adding item to pantry:", data);
+        }
+      } catch (err) {
+        console.error("Error adding item to pantry:", err);
+      }
     };
 
     const handleAddAllToPantry = async () => {
       try {
-        const promises = ingredients.map(ing =>
+        const promises = ingredients.map((ing) => 
           fetch("/api/items", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -49,7 +57,7 @@ const Recipe = () => {
             }),
           })
         );
-    
+
         await Promise.all(promises);
         alert("All ingredients added to pantry!");
       } catch (err) {
@@ -87,7 +95,15 @@ const Recipe = () => {
             name: ing.name,
             image: `https://spoonacular.com/cdn/ingredients_100x100/${ing.image}`
           })) || [];
-          setIngredients(parsedIngredients);
+          
+          const pantryResponse = await fetch("/api/items"); // Assuming you have an API route to get pantry items
+          const pantryItems = await pantryResponse.json();
+
+          const filteredIngredients = parsedIngredients.filter(ingredient => 
+            !pantryItems.some(pantryItem => pantryItem.item.toLowerCase() === ingredient.name.toLowerCase())
+          );
+
+          setIngredients(filteredIngredients);
       
         } catch (err) {
           console.error('Error fetching data:', err);
