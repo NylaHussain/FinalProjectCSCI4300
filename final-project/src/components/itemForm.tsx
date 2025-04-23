@@ -45,7 +45,12 @@ const ItemForm = () => {
 
   const fetchItemsFromDB = async () => {
     try {
-      const res = await fetch("/api/items"); 
+      //const res = await fetch("/api/items"); 
+      const res = await fetch("/api/items", {
+        method: "GET",
+        credentials: "include", // 👈 this is key!
+      });
+      
       if (!res.ok) throw new Error("Failed to fetch items from DB");
   
       const data = await res.json();
@@ -86,13 +91,14 @@ const ItemForm = () => {
     setFormData({ food: '', image: '' });
   
     try {
-      const response = await fetch("../api/items", {
+      const response = await fetch("/api/items", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
-          owner: 1, 
+          //owner: 1, 
           item: formData.food,
           quantity: "1",
           url: formData.image,
@@ -101,6 +107,7 @@ const ItemForm = () => {
       const data = await response.json(); 
       console.log("Response data:", data);
       if (!response.ok) {
+        console.error("Error from backend:", data); 
         throw new Error("Failed to add item to database");
       }
   
