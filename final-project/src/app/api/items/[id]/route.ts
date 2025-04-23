@@ -27,10 +27,14 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  console.log("DELETE route called with ID:", params.id);
   try {
-    const { id } = params;
+    const id = params.id; // Assuming params is passed correctly
 
+    if (!id) {
+      console.error("Missing ID");
+      return NextResponse.json({ message: "Missing ID" }, { status: 400 });
+    }
+    
     // Validate ID format
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ message: 'Invalid ID format' }, { status: 400 });
