@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 interface IItem extends Document {
-  owner: number;
+  owner: string;
   item: string;
   quantity: string;
   url: string;
@@ -9,7 +9,8 @@ interface IItem extends Document {
 
 const itemSchema = new Schema<IItem>({
   owner: {
-    type: Number,
+    type: String,
+    required: true,
   },
   item: {
     type: String,
