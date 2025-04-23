@@ -23,26 +23,71 @@ const ItemForm = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // const handleIncrease = (id) => {
+  //   setItems(prevItems =>
+  //     prevItems.map(item =>
+  //       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+  //     )
+  //   );
+  // };
+  
+  // const handleDecrease = (id) => {
+  //   setItems(prevItems =>
+  //     prevItems.map(item =>
+  //       item.id === id && item.quantity > 0
+  //         ? { ...item, quantity: item.quantity - 1 }
+  //         : item
+  //     )
+  //   );
+  // };  
+
+  const updateQuantityInDB = async (id, newQuantity, food, image) => {
+    try {
+      const res = await fetch(`/api/items/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          item: food,
+          quantity: newQuantity,
+          url: image,
+          owner: 1, 
+        }),
+      });
+  
+      if (!res.ok) {
+        console.error("Failed to update quantity in DB");
+      }
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+    }
+  };
+  
   const handleIncrease = (id) => {
     setItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
+      prevItems.map(item => {
+        if (item.id === id) {
+          const updatedItem = { ...item, quantity: item.quantity + 1 };
+          updateQuantityInDB(id, updatedItem.quantity, item.food, item.image);
+          return updatedItem;
+        }
+        return item;
+      })
     );
   };
   
   const handleDecrease = (id) => {
     setItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id && item.quantity > 0
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
+      prevItems.map(item => {
+        if (item.id === id && item.quantity > 0) {
+          const updatedItem = { ...item, quantity: item.quantity - 1 };
+          updateQuantityInDB(id, updatedItem.quantity, item.food, item.image);
+          return updatedItem;
+        }
+        return item;
+      })
     );
-  };  
-
+  };
   
-
   const fetchItemsFromDB = async () => {
     try {
       const res = await fetch("/api/items"); 

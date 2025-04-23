@@ -8,13 +8,37 @@ interface RouteParams {
     params: { id: string };
   }
 
-export async function PUT(request:NextRequest, { params}:RouteParams ) {
-  const { id } = await params;
-  const { owner: owner, item: item, quantity: quantity, url: url } = await request.json();
-  await connectMongoDB();
-  await Item.findByIdAndUpdate(id, { owner, item, quantity, url });
-  return NextResponse.json({ message: "Item updated" }, { status: 200 });
-}
+  export async function PUT(request: NextRequest, { params }: RouteParams) {
+    const { id } = params;
+  
+    const { owner, item, quantity, url } = await request.json();
+  
+    if (!id || !item || quantity == null) {
+      return NextResponse.json(
+        { message: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+  
+    await connectMongoDB();
+  
+    try {
+      await Item.findByIdAndUpdate(id, {
+        owner,
+        item,
+        quantity,
+        url,
+      });
+  
+      return NextResponse.json({ message: "Item updated" }, { status: 200 });
+    } catch (error) {
+      console.error("Update error:", error);
+      return NextResponse.json(
+        { message: "Failed to update item" },
+        { status: 500 }
+      );
+    }
+  }
 
 export async function GET(request:NextRequest, { params }:RouteParams) {
   const { id } = await params;
@@ -28,7 +52,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = params.id; // Assuming params is passed correctly
+    const id = params.id; 
 
     if (!id) {
       console.error("Missing ID");
